@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Portfolio",
   description:
     "Explore Crux Design's portfolio — from 3D visualization and AI-generated art to UX design and digital personas.",
+  alternates: { canonical: "/portfolio" },
   openGraph: {
     title: "Portfolio — Crux Design",
     description: "Creative and technical projects brought to life by Crux Design.",

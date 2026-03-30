@@ -6,6 +6,12 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+/* Focus indicators for accessibility */
+*:focus-visible {
+  outline: 2px solid #45b7d1;
+  outline-offset: 2px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading), system-ui, sans-serif;
 }

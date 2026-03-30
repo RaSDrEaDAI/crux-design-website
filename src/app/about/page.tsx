@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "About",
   description:
     "Learn about Crux Design — founded in Soho NYC by Uros Perisic, now bringing AI-powered design and marketing to small businesses in Southwest Florida.",
+  alternates: { canonical: "/about" },
   openGraph: {
     title: "About Crux Design",
     description:

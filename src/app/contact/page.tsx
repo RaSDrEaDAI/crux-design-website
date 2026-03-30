@@ -5,11 +5,40 @@ import { useState } from "react";
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // TODO: Wire up form submission (API route, email service, etc.)
-    setSubmitted(true);
+    setSending(true);
+    setError("");
+
+    const form = e.currentTarget;
+    const data = {
+      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      service: (form.elements.namedItem("service") as HTMLSelectElement).value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        const body = await res.json();
+        throw new Error(body.error || "Something went wrong.");
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to send message.");
+    } finally {
+      setSending(false);
+    }
   }
 
   return (
@@ -45,6 +74,12 @@ export default function ContactPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {error && (
+                    <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 text-red-300 text-sm">
+                      {error}
+                    </div>
+                  )}
+
                   <div>
                     <label
                       htmlFor="name"
@@ -57,7 +92,7 @@ export default function ContactPage() {
                       id="name"
                       name="name"
                       required
-                      className="w-full bg-purple-dark border border-purple-light/30 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-cyan transition-colors"
+                      className="w-full bg-purple-dark border border-purple-light/30 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-cyan focus:ring-2 focus:ring-cyan/30 transition-colors"
                       placeholder="Your name"
                     />
                   </div>
@@ -74,7 +109,7 @@ export default function ContactPage() {
                       id="email"
                       name="email"
                       required
-                      className="w-full bg-purple-dark border border-purple-light/30 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-cyan transition-colors"
+                      className="w-full bg-purple-dark border border-purple-light/30 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-cyan focus:ring-2 focus:ring-cyan/30 transition-colors"
                       placeholder="you@company.com"
                     />
                   </div>
@@ -89,7 +124,7 @@ export default function ContactPage() {
                     <select
                       id="service"
                       name="service"
-                      className="w-full bg-purple-dark border border-purple-light/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan transition-colors"
+                      className="w-full bg-purple-dark border border-purple-light/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan focus:ring-2 focus:ring-cyan/30 transition-colors"
                     >
                       <option value="">Select a service</option>
                       <option value="web-design">Web Design & Development</option>
@@ -113,16 +148,17 @@ export default function ContactPage() {
                       name="message"
                       rows={5}
                       required
-                      className="w-full bg-purple-dark border border-purple-light/30 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-cyan transition-colors resize-none"
+                      className="w-full bg-purple-dark border border-purple-light/30 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-cyan focus:ring-2 focus:ring-cyan/30 transition-colors resize-none"
                       placeholder="Tell us about your project..."
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full bg-magenta hover:bg-magenta-light text-white font-semibold py-3 rounded-lg transition-colors"
+                    disabled={sending}
+                    className="w-full bg-magenta hover:bg-magenta-light disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-lg transition-colors"
                   >
-                    Send Message
+                    {sending ? "Sending..." : "Send Message"}
                   </button>
                 </form>
               )}

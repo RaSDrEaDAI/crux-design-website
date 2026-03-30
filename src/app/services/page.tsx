@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Services",
   description:
     "Crux Design offers web design, AI integration, marketing, social media management, and business automation for small businesses in Southwest Florida.",
+  alternates: { canonical: "/services" },
   openGraph: {
     title: "Services — Crux Design",
     description:

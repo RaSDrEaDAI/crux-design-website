@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const navLinks = [
@@ -14,6 +15,12 @@ const navLinks = [
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+
+  function isActive(href: string) {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
+  }
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-purple-dark/95 backdrop-blur-sm border-b border-purple-light/20">
@@ -35,7 +42,12 @@ export default function Header() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="text-white/80 hover:text-cyan transition-colors text-sm font-medium tracking-wide uppercase"
+                className={`text-sm font-medium tracking-wide uppercase transition-colors ${
+                  isActive(link.href)
+                    ? "text-cyan border-b-2 border-cyan pb-0.5"
+                    : "text-white/80 hover:text-cyan"
+                }`}
+                aria-current={isActive(link.href) ? "page" : undefined}
               >
                 {link.label}
               </Link>
@@ -48,6 +60,7 @@ export default function Header() {
           className="md:hidden text-white p-2"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
+          aria-expanded={mobileOpen}
         >
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             {mobileOpen ? (
@@ -67,8 +80,13 @@ export default function Header() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="block text-white/80 hover:text-cyan transition-colors text-sm font-medium tracking-wide uppercase"
+                  className={`block text-sm font-medium tracking-wide uppercase transition-colors ${
+                    isActive(link.href)
+                      ? "text-cyan"
+                      : "text-white/80 hover:text-cyan"
+                  }`}
                   onClick={() => setMobileOpen(false)}
+                  aria-current={isActive(link.href) ? "page" : undefined}
                 >
                   {link.label}
                 </Link>
