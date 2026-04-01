@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getFeaturedProjects } from "@/data/projects";
 
 const services = [
   {
@@ -45,7 +46,34 @@ const services = [
   },
 ];
 
+const stats = [
+  { label: "Client Retention Rate", value: "93%", suffix: "" },
+  { label: "Years of Creative Excellence", value: "9", suffix: "+" },
+  { label: "Fortune 500 Clients Served", value: "4", suffix: "" },
+  { label: "Industries: Finance & Media", value: "2", suffix: "" },
+];
+
+const testimonials = [
+  {
+    quote:
+      "Crux transformed our online presence. The directory they built has become the go-to resource for our entire community.",
+    author: "Babcock Ranch Business Owner",
+  },
+  {
+    quote:
+      "They understood our mission from day one. The website drives registrations and donations in a way our old site never could.",
+    author: "Edison Sailing Center Board Member",
+  },
+  {
+    quote:
+      "Working with Uros was like having an in-house creative director. The attention to detail is unmatched.",
+    author: "Fortune 500 Marketing Director",
+  },
+];
+
 export default function HomePage() {
+  const featured = getFeaturedProjects().slice(0, 5);
+
   return (
     <>
       {/* Hero Section */}
@@ -75,9 +103,8 @@ export default function HomePage() {
               </span>
             </h1>
             <p className="text-lg sm:text-xl text-white/70 leading-relaxed mb-8 max-w-2xl">
-              We help small businesses in Southwest Florida and beyond transform through
-              creative design, intelligent automation, and cutting-edge AI integration.
-              From stunning websites to automated workflows — we build the future of your business.
+              9 years of creative work for Apple, National Geographic, and Fidelity
+              — now powering AI-driven growth for businesses ready to compete.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
@@ -93,6 +120,27 @@ export default function HomePage() {
                 View Our Work
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Trusted By */}
+      <section className="py-10 bg-purple-dark/80 border-y border-purple-light/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="text-center text-white/40 text-sm uppercase tracking-widest mb-6">
+            Trusted by industry leaders
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
+            {["Apple", "National Geographic", "Fidelity Investments", "TD Ameritrade"].map(
+              (name) => (
+                <span
+                  key={name}
+                  className="text-white/30 hover:text-white/50 transition-colors text-lg sm:text-xl font-heading font-semibold tracking-wide"
+                >
+                  {name}
+                </span>
+              )
+            )}
           </div>
         </div>
       </section>
@@ -139,8 +187,33 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Results / Stats */}
+      <section className="py-16 bg-purple/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+              The Numbers Behind Our <span className="text-magenta">Work</span>
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            {stats.map((stat) => (
+              <div
+                key={stat.label}
+                className="bg-purple/40 border border-purple-light/20 rounded-xl p-6 text-center"
+              >
+                <div className="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-magenta to-cyan mb-2">
+                  {stat.value}
+                  {stat.suffix}
+                </div>
+                <p className="text-white/60 text-sm">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Featured Work */}
-      <section className="py-20 bg-purple/30">
+      <section className="py-20 bg-purple-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">
@@ -152,26 +225,28 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { src: "/images/portfolio/3dviz-genai.png", title: "3D Visualization & GenAI" },
-              { src: "/images/portfolio/digital-personas.png", title: "Digital Personas" },
-              { src: "/images/portfolio/knowtifyme.png", title: "Knowtify.me Platform" },
-            ].map((item) => (
-              <div
-                key={item.title}
+            {featured.map((project) => (
+              <Link
+                key={project.slug}
+                href={`/portfolio/${project.slug}`}
                 className="relative aspect-[4/3] rounded-xl overflow-hidden group"
               >
                 <Image
-                  src={item.src}
-                  alt={item.title}
+                  src={project.image}
+                  alt={project.title}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-purple-dark/80 via-transparent to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <h3 className="text-white font-semibold">{item.title}</h3>
+                <div className="absolute top-3 left-3">
+                  <span className="bg-purple-dark/80 backdrop-blur-sm text-cyan text-xs font-medium px-3 py-1 rounded-full">
+                    {project.category}
+                  </span>
                 </div>
-              </div>
+                <div className="absolute bottom-0 left-0 right-0 p-4">
+                  <h3 className="text-white font-semibold">{project.title}</h3>
+                </div>
+              </Link>
             ))}
           </div>
 
@@ -182,6 +257,37 @@ export default function HomePage() {
             >
               View All Projects
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-20 bg-purple/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+              What Our Clients <span className="text-cyan">Say</span>
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {testimonials.map((t) => (
+              <div
+                key={t.author}
+                className="bg-purple/40 border border-purple-light/20 rounded-xl p-8"
+              >
+                <svg
+                  className="w-8 h-8 text-magenta/40 mb-4"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z" />
+                </svg>
+                <p className="text-white/70 leading-relaxed italic mb-4">
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+                <p className="text-cyan text-sm font-medium">— {t.author}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

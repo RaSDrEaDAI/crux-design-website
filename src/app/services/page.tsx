@@ -18,6 +18,8 @@ const services = [
     title: "Web Design & Development",
     description:
       "We build modern, responsive websites that don't just look great — they perform. Using Next.js, React, and Tailwind CSS, we create fast-loading, SEO-optimized sites that convert visitors into customers.",
+    proofPoint:
+      "See it in action: We built Babcock Ranch Directory, Edison Sailing Center, and Victory KDD Cleaning from the ground up.",
     features: [
       "Custom responsive design — mobile-first approach",
       "Next.js & React for blazing-fast performance",
@@ -32,6 +34,8 @@ const services = [
     title: "AI Integration",
     description:
       "From generative AI workflows to intelligent automation, we bring the power of artificial intelligence into your business operations. We work with tools like ComfyUI, Fal.ai, and the Anthropic SDK to build custom AI solutions.",
+    proofPoint:
+      "Our ComfyUI workflows and generative AI pipelines produce production-ready content for brands — see our AI Gallery.",
     features: [
       "Custom AI workflow design and implementation",
       "Generative AI for content and imagery",
@@ -46,6 +50,8 @@ const services = [
     title: "Marketing & Branding",
     description:
       "Strategic marketing that cuts through the noise. We craft brand identities, develop marketing strategies, and execute campaigns that build real connections with your audience.",
+    proofPoint:
+      "From Freal's complete brand identity to Fortune 500 video content strategy — we craft brands that convert.",
     features: [
       "Brand identity design and guidelines",
       "Digital marketing strategy",
@@ -74,6 +80,8 @@ const services = [
     title: "Business Automation",
     description:
       "Stop wasting time on repetitive tasks. We design and implement intelligent automation systems that streamline your operations, from customer onboarding to inventory management.",
+    proofPoint:
+      "We've streamlined operations for clients ranging from local directories to enterprise marketing teams.",
     features: [
       "Workflow analysis and optimization",
       "Custom automation pipeline design",
@@ -120,7 +128,10 @@ export default function ServicesPage() {
                   className={`inline-block h-1 w-16 rounded-full bg-gradient-to-r ${service.gradient} mb-4`}
                 />
                 <h2 className="text-2xl sm:text-3xl font-bold mb-4">{service.title}</h2>
-                <p className="text-white/70 leading-relaxed mb-6">{service.description}</p>
+                <p className="text-white/70 leading-relaxed mb-4">{service.description}</p>
+                {"proofPoint" in service && service.proofPoint && (
+                  <p className="text-cyan/80 text-sm italic mb-6">{service.proofPoint}</p>
+                )}
               </div>
               <div
                 className={`bg-purple/40 border border-purple-light/20 rounded-xl p-6 ${

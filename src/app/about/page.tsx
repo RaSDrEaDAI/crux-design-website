@@ -72,8 +72,36 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Track Record */}
+      <section className="py-16 bg-purple/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-purple/40 border border-purple-light/20 rounded-xl p-8 sm:p-12">
+            <h2 className="text-3xl font-bold mb-6">
+              Built for the World&apos;s{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-magenta to-cyan">
+                Best Brands
+              </span>
+            </h2>
+            <div className="space-y-4 text-white/70 leading-relaxed text-lg">
+              <p>
+                Before bringing AI-first solutions to Southwest Florida, Crux delivered
+                creative work at the highest level. We produced motion design, video content,
+                and brand experiences for <strong className="text-white">Apple, National Geographic,
+                Fidelity Investments, and TD Ameritrade</strong> — earning a{" "}
+                <strong className="text-white">93% client retention rate</strong> across nearly
+                a decade of work.
+              </p>
+              <p>
+                That same standard of craft and strategic thinking now drives everything
+                we build for growing businesses.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* The Pivot */}
-      <section className="py-20 bg-purple/30">
+      <section className="py-20 bg-purple-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1 relative aspect-[4/3] rounded-xl overflow-hidden">
@@ -90,9 +118,10 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-4 text-white/70 leading-relaxed">
                 <p>
-                  As artificial intelligence began reshaping creative industries, Uros saw
-                  an opportunity that most agencies missed: AI wasn&apos;t a threat to creative
-                  work — it was the most powerful tool to amplify it.
+                  When AI began reshaping the creative landscape, Uros didn&apos;t wait. With
+                  nearly a decade of Fortune 500 production behind him, he saw what most
+                  agencies missed: AI wasn&apos;t replacing creative work — it was removing the
+                  bottlenecks that kept small businesses from accessing it.
                 </p>
                 <p>
                   Crux Design pivoted to integrate AI across every service offering.

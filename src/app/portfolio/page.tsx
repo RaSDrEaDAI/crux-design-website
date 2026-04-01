@@ -1,83 +1,18 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { projects } from "@/data/projects";
 
 export const metadata: Metadata = {
   title: "Portfolio",
   description:
-    "Explore Crux Design's portfolio — from 3D visualization and AI-generated art to UX design and digital personas.",
+    "Explore Crux Design's portfolio — from Sur La Table's recipe platform and Babcock Ranch to 3D visualization, AI-generated art, and UX design.",
   alternates: { canonical: "/portfolio" },
   openGraph: {
     title: "Portfolio — Crux Design",
     description: "Creative and technical projects brought to life by Crux Design.",
   },
 };
-
-const projects = [
-  {
-    title: "3D Visualization & Generative AI",
-    category: "AI / 3D",
-    description:
-      "Cutting-edge 3D visualizations enhanced with generative AI techniques, pushing the boundaries of digital art and commercial graphics.",
-    image: "/images/portfolio/3dviz-genai.png",
-  },
-  {
-    title: "Digital Personas",
-    category: "AI / Creative",
-    description:
-      "AI-driven digital persona creation for brands and influencers — photorealistic characters that bring campaigns to life.",
-    image: "/images/portfolio/digital-personas.png",
-  },
-  {
-    title: "Knowtify.me Platform",
-    category: "Web / UX",
-    description:
-      "Full platform design and UX for Knowtify.me — a notification and awareness platform with mapping, analytics, and user engagement features.",
-    image: "/images/portfolio/knowtifyme.png",
-  },
-  {
-    title: "Knowtify.me UX Design",
-    category: "UX / UI",
-    description:
-      "Detailed user experience design work for the Knowtify.me platform, including wireframes, flows, and interactive prototypes.",
-    image: "/images/portfolio/knowtifyme-ux.png",
-  },
-  {
-    title: "Apple Conference 2019",
-    category: "Event / Video",
-    description:
-      "Visual production and creative direction for event coverage at Apple Conference 2019.",
-    image: "/images/portfolio/apple-conf.jpg",
-  },
-  {
-    title: "Digital Influencer Campaign",
-    category: "AI / Marketing",
-    description:
-      "AI-generated digital influencer content for modern marketing campaigns — blending technology with authentic brand storytelling.",
-    image: "/images/portfolio/digital-influencer.png",
-  },
-  {
-    title: "ComfyUI Workflows",
-    category: "AI / Tooling",
-    description:
-      "Advanced ComfyUI pipeline development for generative art production — custom nodes, workflows, and batch processing systems.",
-    image: "/images/portfolio/comfyui.png",
-  },
-  {
-    title: "Metaverse Experience",
-    category: "3D / Immersive",
-    description:
-      "Immersive metaverse environment design — virtual spaces that combine architectural thinking with interactive digital experiences.",
-    image: "/images/portfolio/metaverse.jpeg",
-  },
-  {
-    title: "Freal Brand Project",
-    category: "Branding / Web",
-    description:
-      "Complete brand identity and web presence for Freal — from visual direction to responsive web implementation.",
-    image: "/images/freal/cover.webp",
-  },
-];
 
 export default function PortfolioPage() {
   return (
@@ -102,8 +37,9 @@ export default function PortfolioPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map((project) => (
-              <div
-                key={project.title}
+              <Link
+                key={project.slug}
+                href={`/portfolio/${project.slug}`}
                 className="bg-purple/40 border border-purple-light/20 rounded-xl overflow-hidden group hover:border-magenta/40 transition-colors"
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
@@ -118,6 +54,13 @@ export default function PortfolioPage() {
                       {project.category}
                     </span>
                   </div>
+                  {project.liveUrl && (
+                    <div className="absolute top-3 right-3">
+                      <span className="bg-magenta/80 backdrop-blur-sm text-white text-xs font-medium px-3 py-1 rounded-full">
+                        Live Site
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-semibold mb-2">{project.title}</h3>
@@ -125,7 +68,7 @@ export default function PortfolioPage() {
                     {project.description}
                   </p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

@@ -29,3 +29,20 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# non-website assets (AI, branding, workflows, etc.)
+/AI_Images/
+/Banner_imgs/
+/Branding/
+/Freal/
+/__LORACreation/
+/__output/
+/comfyui_outputs/
+/comfyui_workflows/
+/prospects/
+/remotion/
+
+# large video/case-study assets (too large for git)
+/public/casestudy-genesys/
+/public/casestudy1/
+/public/casestudy2/
