@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getFeaturedProjects } from "@/data/projects";
+import { projects, applySettings, getFeaturedProjects } from "@/data/projects";
+import { loadProjectSettings } from "@/data/settings-server";
 
 const services = [
   {
@@ -71,14 +72,18 @@ const testimonials = [
   },
 ];
 
+export const dynamic = "force-dynamic";
+
 export default function HomePage() {
-  const featured = getFeaturedProjects().slice(0, 5);
+  const settings = loadProjectSettings();
+  const visibleProjects = applySettings(projects, settings);
+  const featured = visibleProjects.filter((p) => p.featured).slice(0, 5);
 
   return (
     <>
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-dark via-purple to-purple-dark" />
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-dark via-purple-dark to-[#1a1530]" />
         <div className="absolute inset-0 opacity-20">
           <Image
             src="/images/portfolio/3dviz-genai.png"
@@ -94,7 +99,7 @@ export default function HomePage() {
           <div className="max-w-3xl">
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight mb-6">
               Where{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-magenta to-cyan">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-magenta to-violet">
                 Design
               </span>{" "}
               Meets{" "}
@@ -201,7 +206,7 @@ export default function HomePage() {
                 key={stat.label}
                 className="bg-purple/40 border border-purple-light/20 rounded-xl p-6 text-center"
               >
-                <div className="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-magenta to-cyan mb-2">
+                <div className="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-magenta via-violet to-cyan mb-2">
                   {stat.value}
                   {stat.suffix}
                 </div>
@@ -293,7 +298,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-purple via-magenta-dark to-purple">
+      <section className="py-20 bg-gradient-to-r from-violet-dark via-magenta-dark to-violet-dark">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
             Ready to Transform Your Business?

@@ -78,7 +78,7 @@ export default function AboutPage() {
           <div className="bg-purple/40 border border-purple-light/20 rounded-xl p-8 sm:p-12">
             <h2 className="text-3xl font-bold mb-6">
               Built for the World&apos;s{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-magenta to-cyan">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-magenta via-violet to-cyan">
                 Best Brands
               </span>
             </h2>
@@ -177,7 +177,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-gradient-to-r from-purple via-magenta-dark to-purple">
+      <section className="py-16 bg-gradient-to-r from-violet-dark via-magenta-dark to-violet-dark">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-2xl sm:text-3xl font-bold mb-4">
             Want to work with us?

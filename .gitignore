@@ -26,9 +26,16 @@ yarn-error.log*
 # env files
 .env*.local
 
+# MCP config (contains API keys)
+.mcp.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# working directories
+/screenshots/
+/scripts/
 
 # non-website assets (AI, branding, workflows, etc.)
 /AI_Images/

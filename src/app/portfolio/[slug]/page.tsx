@@ -225,7 +225,7 @@ export default async function ProjectPage({ params }: Props) {
       )}
 
       {/* CTA */}
-      <section className="py-16 bg-gradient-to-r from-purple via-magenta-dark to-purple">
+      <section className="py-16 bg-gradient-to-r from-violet-dark via-magenta-dark to-violet-dark">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-2xl sm:text-3xl font-bold mb-4">
             Want something like this for your business?
